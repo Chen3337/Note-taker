@@ -41,27 +41,17 @@ app.post("/api/notes", function(req, res) {
 });
 // delete notes from api
 app.delete("/api/notes/:id", function(req, res) {
-    console.log(req.param.id);
+    const delId = req.params.id;
+    notes.splice(delId, 1);
+    creatID();
+    fs.writeFileSync("./db/db.json", JSON.stringify(notes, null, 2), function(err){if(err) throw err});
 });
-
-
-
+// making id for all notes
 function creatID (){
     for(i = 0; i < notes.length; i++){
         notes[i].id = i;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
 // server listener
 app.listen(PORT, function(){
     console.log(`listening on port ${PORT}`);
