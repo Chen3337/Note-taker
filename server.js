@@ -1,20 +1,17 @@
 const express = require("express");
-const mysql = require("mysql");
-var path = require("path");
 const fs = require("fs");
 const PORT = process.env.port || 3500;
 let notes;
-
 const dataSaved =  fs.readFileSync("./db/db.json","UTF-8");
 if(dataSaved){
     const oldNotes = JSON.parse(dataSaved);
     notes = oldNotes;
+    creatID();
 }
 else{
     notes = [];
 }
-creatID();
-console.log(notes);
+
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
