@@ -1,6 +1,7 @@
 const express = require("express");
 const fs = require("fs");
-const PORT = process.env.port || 3500;
+const path = require("path");
+const PORT = process.env.PORT || 3500;
 let notes;
 const dataSaved =  fs.readFileSync("./db/db.json","UTF-8");
 if(dataSaved){
@@ -19,11 +20,11 @@ app.use(express.static(__dirname + '/public'));
 
 // index page
 app.get("/", function(req, res) {
-    res.sendFile(__dirname +  "/public/index.html");
+    res.sendFile(path.join(__dirname, "public/index.html"));
 });
 // notes page
 app.get("/notes", function(req, res) {
-    res.sendFile(__dirname +  "/public/notes.html");
+    res.sendFile(path.join(__dirname, "public/notes.html"));
 });
 // get notes json api
 app.get("/api/notes", function(req, res) {
